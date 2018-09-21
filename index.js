@@ -2,12 +2,12 @@ const express = require('express');
 const Twitter = require('twitter');
 
 const client = new Twitter({
-  consumer_key: '',
-  consumer_secret: '',
-  access_token_key: '',
-  access_token_secret: ''
+  consumer_key: 'oIqaujYUBTnfrcCKfzvBNdVuo',
+  consumer_secret: 'cMqesj02sAqKp3z4MNOULD8FxNJEYthbGE1V6TL4REt47eI5E8',
+  access_token_key: '75998516-79HZ1hp8a2Yt6Q44goPkjG3gL65Du7gOlHC3gGqsu',
+  access_token_secret: 'FEhNnkRJdLLD436lq5gZZFQwKnvus9tImdz0u7ypdGgtb'
 });
- 
+
 const defaults = {
   screen_name: 'realDonaldTrump',
   tweet_mode: 'extended',
@@ -35,4 +35,3 @@ app.route('/:handle')
 app.listen(3000, function(error) {
   console.log('Trump listening on port 3000');
 });
-
