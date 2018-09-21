@@ -1,4 +1,4 @@
-Seniorly exercise
+Seniorly exercise 
 =================
 
 This exercise has a very simple premise. You like Twitter a lot, so you have
@@ -75,9 +75,8 @@ a duplicate tweet doing it like this.
 Expected deliverable
 --------------------
 
-A zip or a github repo minus the keys and the secrets (also removed from the 
+A zip or a github repo minus the keys and the secrets (also removed from the
 commit history if they ever got leaked). And instructions to run the project.
 
 
 Thank you very much for accepting the challenge. Have fun!
-
