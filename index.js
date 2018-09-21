@@ -1,5 +1,7 @@
 const express = require('express');
 const Twitter = require('twitter');
+const cors = require('cors')
+
 
 const client = new Twitter({
   consumer_key: 'oIqaujYUBTnfrcCKfzvBNdVuo',
@@ -15,6 +17,7 @@ const defaults = {
 };
 
 const app = express();
+app.use(cors())
 
 app.route('/:handle')
   .get(function(req, res) {
