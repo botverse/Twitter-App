@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import InfiniteS from './InfiniteScroll';
+import App from './App.js'
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<InfiniteS />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();

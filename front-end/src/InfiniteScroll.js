@@ -8,6 +8,7 @@ const style = {
   border: "1px solid green",
   margin: 6,
   padding: 8
+
 };
 
 class InfiniteS extends React.Component {
@@ -41,13 +42,12 @@ class InfiniteS extends React.Component {
     this.setState({last_id: input.data[19].id_str})
     arr.pop()
     this.setState({tweetHolder: arr})
-    // console.log(this.state.tweetHolder)
   }
 
   render() {
     return (
       <div>
-        <h1>demo: react-infinite-scroll-component</h1>
+        <h1>D Trumps Twitter</h1>
         <hr />
         <InfiniteScroll
           dataLength={this.state.tweetHolder.length}

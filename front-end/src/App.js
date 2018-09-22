@@ -1,65 +1,65 @@
-import React, { Component } from 'react';
-import './App.css';
+import React from "react";
+// import { render } from "react-dom";
+import InfiniteScroll from "react-infinite-scroll-component";
 import axios from 'axios'
-import InfiniteScroll from 'react-infinite-scroll-component'
+import styles from './style.css.js'
+import './App.css'
 
-class App extends Component {
-  constructor () {
-    super()
-    this.state = {
-      tweets: 'butt',
-      last_tweet: '',
-      tweetHolder: [],
-      hasMore: true
-    }
-    this.handleClick = this.handleClick.bind(this)
-    this.tweets = this.tweets.bind(this)
-    // this.loadMore = this.loadMore.bind(this)
-    this.hasMoreItems = this.hasMoreItems.bind(this)
+class InfiniteS extends React.Component {
+  state = {
+    items: Array.from({ length: 20 }),
+    tweetHolder: [],
+    last_id: null
+  };
+
+  componentDidMount() {
+    this.loadInitialData()
   }
 
-  handleClick() {
+  fetchMoreData = () => {
+    axios.get(`http://localhost:3000/realDonaldTrump?max_id=${this.state.last_id}`)
+    .then(response => this.tweets(response));
+  };
+
+  loadInitialData = () => {
     axios.get('http://localhost:3000/realDonaldTrump')
-      .then(response => this.tweets(response));
+    .then(response => this.tweets(response));
   }
 
-  loadMore() {
-    axios.get('http://localhost:3000/realDonaldTrump')
-      .then(response => this.tweets(response));
-
-  }
-
-  hasMoreItems() {
-    console.log('yes')
-    console.log(this.state.tweetHolder.length)
-    if(this.state.tweetHolder.length > 49) {this.setState({hasMore: false})}
-  }
-
-  tweets(input) {
-    // console.log(input.data)
-    console.log(this.state.tweetHolder)
+  tweets = (input) => {
+    console.log(input)
     var arr = this.state.tweetHolder
     for (var i = 0; i < input.data.length; i++) {
       const tweet = input.data[i]
-      arr.push(<p>{tweet.full_text}</p>)
+      arr.push(<p style={styles.tweets} key={input.data.length + [i]}>{tweet.created_at}: {tweet.full_text}</p>)
     }
+    this.setState({last_id: input.data[19].id_str})
+    arr.pop()
     this.setState({tweetHolder: arr})
-    this.setState({tweets: this.state.tweetHolder})
-    this.setState({last_tweet: input.data[19]})
-    console.log('change')
   }
 
   render() {
     return (
-          <InfiniteScroll
-            dataLength={this.state.tweetHolder.length}
-            next={this.loadMore}
-            hasMore={true}
-            loader={<div className="loader" key={0}>Loading ...</div>}>
-            {this.state.tweetHolder}
-          </InfiniteScroll>
-    )
+      <div>
+        <header className="App-Header">D Trumps Twitter</header>
+        <hr />
+        <InfiniteScroll
+          dataLength={this.state.tweetHolder.length}
+          next={this.fetchMoreData}
+          hasMore={true}
+          loader={<h4>Loading...</h4>}
+        >
+          <div>
+          {this.state.tweetHolder.map((i, index) => (
+            <div key={index} className="tweets">
+            {i}
+            </div>
+
+          ))}
+          </div>
+        </InfiniteScroll>
+      </div>
+    );
   }
 }
-
-export default App;
+export default InfiniteS
