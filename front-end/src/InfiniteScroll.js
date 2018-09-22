@@ -13,31 +13,35 @@ const style = {
 class InfiniteS extends React.Component {
   state = {
     items: Array.from({ length: 20 }),
-    tweetHolder: []
+    tweetHolder: [],
+    last_id: null
   };
 
   componentDidMount() {
-    this.loadData()
+    this.loadInitialData()
   }
 
   fetchMoreData = () => {
-    this.loadData()
+    axios.get(`http://localhost:3000/realDonaldTrump?max_id=${this.state.last_id}`)
+    .then(response => this.tweets(response));
   };
 
-  loadData = () => {
+  loadInitialData = () => {
     axios.get('http://localhost:3000/realDonaldTrump')
     .then(response => this.tweets(response));
   }
 
   tweets = (input) => {
-    console.log('log')
+    console.log(input)
     var arr = this.state.tweetHolder
     for (var i = 0; i < input.data.length; i++) {
       const tweet = input.data[i]
-      arr.push(<p key={input.data.length + [i]}>{tweet.full_text}</p>)
+      arr.push(<p key={input.data.length + [i]}>{tweet.created_at}: {tweet.full_text}</p>)
     }
+    this.setState({last_id: input.data[19].id_str})
+    arr.pop()
     this.setState({tweetHolder: arr})
-    console.log(this.state.tweetHolder)
+    // console.log(this.state.tweetHolder)
   }
 
   render() {
