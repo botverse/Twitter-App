@@ -3,8 +3,13 @@
   height: 60px;
   padding: 10px;
   color: white;
-  font-size:50px;
   position: -webkit-sticky;
   position: sticky;
   top: 0
+}
+
+.button {
+  font-size:30px;
+  padding: 10px;
+  padding-right: 10px;
 }
